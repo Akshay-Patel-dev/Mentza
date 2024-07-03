@@ -17,12 +17,20 @@ const StepName = ({ onNext }) => {
         dispatch(setName(fullname));
         onNext();
     }
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            nextStep();
+        }
+    };
+
     return (
         <>
             <Card title="What’s your full name?" icon="goggle-emoji">
                 <TextInput
                     value={fullname}
                     onChange={(e) => setFullname(e.target.value)}
+                    onKeyPress={handleKeyPress}
                 />
                 <p className={styles.paragraph}>
                     People use real names at mentza :) !

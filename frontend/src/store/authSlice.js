@@ -4,7 +4,8 @@ const initialState = {
     isAuth: false,
     user: null,
     otp: {
-        phone: '',
+        phone: null,
+        email: null,
         hash: '',
     },
 };
@@ -23,9 +24,10 @@ export const authSlice = createSlice({
             }
         },
         setOtp: (state, action) => {
-            const { phone, hash } = action.payload;
+            const { phone, hash , email} = action.payload;
             state.otp.phone = phone;
             state.otp.hash = hash;
+            state.otp.email = email;
         },
     },
 });

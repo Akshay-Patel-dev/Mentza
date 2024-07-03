@@ -7,7 +7,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - /Users/codersgyan/Documents/databases/mongodb/mentza-data:/data/db
+      - /codersgya/Documents/databases/mongodb/mentza-data:/data/db
   backend:
     build:
       dockerfile: Dockerfile.dev

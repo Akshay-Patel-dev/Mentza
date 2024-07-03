@@ -13,17 +13,25 @@ const Phone = ({ onNext }) => {
 
     async function submit() {
         if (!phoneNumber) return;
+        onNext();
         const { data } = await sendOtp({ phone: phoneNumber });
         console.log(data);
         dispatch(setOtp({ phone: data.phone, hash: data.hash }));
-        onNext();
+        
     }
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            submit();
+        }
+    };
 
     return (
         <Card title="Enter you phone number" icon="phone">
             <TextInput
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
+                onKeyPress={handleKeyPress}
             />
             <div>
                 <div className={styles.actionButtonWrap}>

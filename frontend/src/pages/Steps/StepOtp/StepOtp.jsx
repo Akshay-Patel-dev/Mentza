@@ -11,16 +11,25 @@ import { useDispatch } from 'react-redux';
 const StepOtp = () => {
     const [otp, setOtp] = useState('');
     const dispatch = useDispatch();
-    const { phone, hash } = useSelector((state) => state.auth.otp);
+    const { phone,email, hash } = useSelector((state) => state.auth.otp);
+    console.log(phone,email,hash);
     async function submit() {
-        if (!otp || !phone || !hash) return;
+        if (!otp  || !hash || (!phone && !email)) return;
         try {
-            const { data } = await verifyOtp({ otp, phone, hash });
+            const { data } = await verifyOtp({ otp, phone,email, hash });
             dispatch(setAuth(data));
+            
         } catch (err) {
             console.log(err);
         }
     }
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            submit();
+        }
+    };
+
     return (
         <>
             <div className={styles.cardWrapper}>
@@ -31,12 +40,13 @@ const StepOtp = () => {
                     <TextInput
                         value={otp}
                         onChange={(e) => setOtp(e.target.value)}
+                        onKeyPress={handleKeyPress}
                     />
                     <div className={styles.actionButtonWrap}>
                         <Button onClick={submit} text="Next" />
                     </div>
                     <p className={styles.bottomParagraph}>
-                        By entering your number, you’re agreeing to our Terms of
+                        By entering, you’re agreeing to our Terms of
                         Service and Privacy Policy. Thanks!
                     </p>
                 </Card>
