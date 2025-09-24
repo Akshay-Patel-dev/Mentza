@@ -13,7 +13,7 @@
 
             const otp = await otpService.generateOtp();
             // const otp = 7777;
-
+            
             const ttl = 1000 * 60 * 2; // 2 min
             const expires = Date.now() + ttl;
             const data = phone ? `${phone}.${otp}.${expires}` : `${email}.${otp}.${expires}`;
@@ -105,11 +105,13 @@
         res.cookie('refreshToken', refreshToken, {
             maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
             httpOnly: true,
+            sameSite: 'lax'
         });
 
         res.cookie('accessToken', accessToken, {
             maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
             httpOnly: true,
+            sameSite: 'lax'
         });
 
         // Prepare response with user data

@@ -5,9 +5,9 @@ const nodemailer = require('nodemailer');
 
 const smsSid = process.env.SMS_SID;
 const smsAuthToken = process.env.SMS_AUTH_TOKEN;
-const twilio = require('twilio')(smsSid, smsAuthToken, {
-    lazyLoading: true,
-});
+// const twilio = require('twilio')(smsSid, smsAuthToken, {
+//     lazyLoading: true,
+// });
 
 class OtpService {
     async generateOtp() {
@@ -15,20 +15,20 @@ class OtpService {
         return otp;
     }
 
-    async sendBySms(phone, otp) {
-        return await twilio.messages.create({
-            to: phone,
-            from: process.env.SMS_FROM_NUMBER,
-            body: `Your mentza OTP is ${otp}`,
-        });
-    }
+    // async sendBySms(phone, otp) {
+    //     return await twilio.messages.create({
+    //         to: phone,
+    //         from: process.env.SMS_FROM_NUMBER,
+    //         body: `Your mentza OTP is ${otp}`,
+    //     });
+    // }
 
     async sendByEmail(email, otp) {
         const transporter = nodemailer.createTransport({
-            service: 'gmail',
+            host: "smtp.sendgrid.net",
+            port: 587,
             auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
+                user: "apikey",                 pass: process.env.SENDGRID_API_TWILIO,
             },
         });
         console.log(email);
