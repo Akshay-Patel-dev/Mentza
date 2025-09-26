@@ -8,6 +8,21 @@
 .logoutButton {
     background: none;
     cursor: pointer;
+    border: none;              /* remove default button border */
+    padding: 0;                /* reset padding */
+    width: 40px;               /* same as avatar */
+    height: 40px;              /* same as avatar */
+    border-radius: 50%;        /* make circular */
+    overflow: hidden;          /* clip image corners */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logoutButton img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;         /* scale nicely */
 }
 
 .navRight {
